@@ -5,7 +5,7 @@ talking to each other over REST/HTTP.
 
 ```
                  POST /api/tasks
-   ┌────────┐  ──────────────────►  ┌──────────────────┐
+   ┌────────┐  ──────────────────►  ┌──────────────────-┐
    │ client │                       │  task-service     │  (Java / Spring Boot, :8080)
    └────────┘  ◄──────────────────  │  - owns task data │
                      Task JSON      │  - business logic │
@@ -15,8 +15,8 @@ talking to each other over REST/HTTP.
                                               ▼
                                     ┌──────────────────────┐
                                     │ notification-service │  (Go, :8081)
-                                    │ - simulates sending   │
-                                    │   email/SMS            │
+                                    │ - simulates sending  │
+                                    │   email/SMS          │
                                     └──────────────────────┘
 ```
 
@@ -30,20 +30,20 @@ is a side effect, not a source of truth.
 
 REST API:
 | Method | Path                        | Description         |
-|--------|-----------------------------|----------------------|
-| POST   | `/api/tasks`                 | Create a task        |
-| GET    | `/api/tasks`                 | List tasks            |
-| GET    | `/api/tasks/{id}`             | Get one task          |
-| PATCH  | `/api/tasks/{id}/complete`    | Mark task done        |
-| DELETE | `/api/tasks/{id}`             | Delete a task         |
+|--------|-----------------------------|---------------------|
+| POST   | `/api/tasks`                | Create a task       |
+| GET    | `/api/tasks`                | List tasks          |
+| GET    | `/api/tasks/{id}`           | Get one task        |
+| PATCH  | `/api/tasks/{id}/complete`  | Mark task done      |
+| DELETE | `/api/tasks/{id}`           | Delete a task       |
 
-### `notification-service` (Go 1.22, stdlib only)
+### `notification-service` (Go 1.26, stdlib only)
 Stateless webhook receiver. Logs the event and returns a simulated delivery
 confirmation — swap in a real email/SMS provider call later.
 
-| Method | Path                | Description               |
-|--------|---------------------|----------------------------|
-| GET    | `/health`             | Health check                |
+| Method | Path                  | Description                  |
+|--------|-----------------------|------------------------------|
+| GET    | `/health`             | Health check                 |
 | POST   | `/webhook/notify`     | Receive a notification event |
 
 ## Running locally (without Docker)
