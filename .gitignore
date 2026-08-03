@@ -1,0 +1,16 @@
+# Java
+target/
+*.class
+
+# Go
+notification-service/notification-service.exe
+notification-service/notification-service
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
